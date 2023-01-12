@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  a:
+    build: ./A
+    ports:
+      - 8888:80
+    env_file:
+      - ./.env
+    depends_on:
+      - rabbitmqserver
+    restart: always
+
+
+
+  rabbitmqserver:
+    image: rabbitmq:3-management
+    volumes:
+      - rabbitmqetc:/etc/rabbitmq/
+      - rabbitmqdata:/var/lib/rabbitmq/mnesia/
+      - rabbitmqlogs:/var/log/rabbitmq/
+    env_file:
+      - ./.env
+    ports:
+      - 15672:15672
+      - 5672:5672
+
+
+volumes:
+  rabbitmqetc:
+  rabbitmqdata:
+  rabbitmqlogs:
