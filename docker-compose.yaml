@@ -10,7 +10,13 @@ services:
     depends_on:
       - rabbitmqserver
     restart: always
-
+  b:
+    build: ./B
+    env_file:
+      - ./.env
+    depends_on:
+      - rabbitmqserver
+    restart: always
 
 
   rabbitmqserver:
@@ -24,9 +30,17 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
-
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    env_file:
+      - ./.env
+    volumes:
+      - mongodata:/data/db
 
 volumes:
   rabbitmqetc:
   rabbitmqdata:
   rabbitmqlogs:
+  mongodata:
