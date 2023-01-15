@@ -1,0 +1,12 @@
+# Exclude files and directories that are not needed for the image
+.git
+.gitignore
+.DS_Store
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+dist
+build
+*.egg-info
+venv
