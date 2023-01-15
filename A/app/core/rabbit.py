@@ -23,8 +23,6 @@ def create_channel_connection():
 
 
 def add_followers(dictdata):
-
-    print(dictdata)
     try:
         channel, connection = create_channel_connection()
         channel.queue_declare(queue=rabbitmq_followers_queue_name, durable=True)
