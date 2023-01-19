@@ -5,6 +5,9 @@ from tweepy import Cursor
 from tweepy import OAuthHandler
 from uuid import uuid4 
 from .rabbit import add_followers
+from .model import Transactions
+from collections import Counter
+from ast import literal_eval
 
 
 CONSUMER_KEY=os.getenv('CONSUMER_KEY')
@@ -42,10 +45,30 @@ def run(query):
         transaction_id = str(uuid4())
         publish_followers(followers_list, transaction_id)
         return {"transaction_id": transaction_id,
-                 "follower_count":len(followers_list),
                  "result_recipient": result_recipient }
         
     except:
         traceback.print_exc()
         return {"message": "failed to get user details"}
-    
+
+def format_dict(dictdata, len_list):
+    result = []
+    print(dictdata)
+    for x, y in dictdata.items():
+        new_dict = {"topic":x, "percent":y*100/len_list}
+        result.append(new_dict)
+    return result
+
+def search_db(transaction_id):
+    all_matches = Transactions.objects(transaction_id= transaction_id)
+    topics_lists = [literal_eval(item.topics) for item in all_matches]
+    print(topics_lists)
+    print(len(topics_lists))
+    topics = [ item for elem in topics_lists for item in elem]
+    len_topics = len(topics)
+    topics_dict = dict(Counter(topics).most_common())
+    return format_dict(topics_dict, len_topics)
+
+def get_ta_result(transaction_id):
+    return {"transaction_id": transaction_id,
+            "TA":search_db(transaction_id)}

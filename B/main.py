@@ -33,7 +33,7 @@ def callback(ch, method, properties, body):
         print("Done")
     except:
         traceback.print_exc()
-        ch.basic_ack(delivery_tag=method.delivery_tag)
+  
 
 
 if __name__ == '__main__':

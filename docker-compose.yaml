@@ -17,8 +17,18 @@ services:
     depends_on:
       - rabbitmqserver
     restart: always
-
-
+    deploy:
+      replicas: 1
+  c:
+    build: ./C
+    env_file:
+      - ./.env
+    restart: always
+    deploy:
+      replicas: 1
+    depends_on:
+      - rabbitmqserver
+      - b
   rabbitmqserver:
     image: rabbitmq:3-management
     volumes:
