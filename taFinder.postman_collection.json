@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "f916a1bc-8699-46d0-a752-28e44e1a9078",
+		"name": "taFinder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8198248"
+	},
+	"item": [
+		{
+			"name": "requestTA",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"twitterUser\": \"<twitter user to get TA for>\",\n    \"email\": \"<email to receive results>\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "127.0.0.1:8888/tafinder",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8888",
+					"path": [
+						"tafinder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8888/taresults/a5860d24-5f82-4c17-ab69-dfe41273a593",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8888",
+					"path": [
+						"taresults",
+						"a5860d24-5f82-4c17-ab69-dfe41273a593"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
