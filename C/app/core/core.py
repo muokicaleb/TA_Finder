@@ -2,15 +2,10 @@ import os
 import traceback
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
+from ast import literal_eval
 
 embedder = SentenceTransformer(os.getenv('TRANSFORMER_MODEL'))
-corpus = [  "Automotive", "Beauty", "Books and literature", "Business",
-            "Careers", "Education", "Events", "Family and parenting",
-            "Food and drink", "Gaming", "Health", "Hobbies and interests", 
-            "Home and garden", "Law, government, and politics", "Life stages",
-            "Movies and television", "Music and radio", "Personal finance",
-            "Pets", "Science", "Society", "Sports", "Style and fashion",
-            "Technology and computing", "Travel"]
+corpus = literal_eval(os.getenv('TWITTER_TOPICS'))
 
 corpus_embeddings = embedder.encode(corpus, convert_to_tensor=True)
 
@@ -25,7 +20,7 @@ def query_similar(query):
     top_results = np.argpartition(-cos_scores, range(top_k))[0:top_k]
     print("\n\n======================\n\n")
     print("Query:", query)
-    print("\nTop 5 most similar sentences in corpus:")
+    print("\nTop 3 most similar sentences in corpus:")
 
     similar_categories = []
     for idx in top_results[0:top_k]:
